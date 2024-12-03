@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "postergirl"
+version = "0.1.0"
+description = ""
+authors = ["Jordan Webb <jordan@jordemort.dev>"]
+readme = "README.md"
+packages = [{include = "postergirl"}]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+mastodon-py = "^1.8.1"
+feedparser = "^6.0.11"
+pydantic = "^2.10.2"
+pydantic-yaml = "^1.4.0"
+tempora = "^5.7.0"
+rich = "^13.9.4"
+lxml = "^5.3.0"
+requests = "^2.32.3"
+apprise = "^1.9.0"
+requests-cache = "^1.2.1"
+typer = "^0.14.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
