@@ -22,6 +22,7 @@ from postergirl.models import (
     PostergirlState,
     XPathFeedConfig,
 )
+from postergirl.templates import Renderers, render_template
 from postergirl.xpathfeed import XPathFeed
 
 
@@ -60,7 +61,9 @@ def run_once(
             )
 
         fetch_time = time.time()
-        max_age = cast(timedelta, parse_timedelta(feed_config.max_age))
+        max_age = cast(
+            timedelta, parse_timedelta(feed_config.max_age or config.max_age)
+        )
         feed_state.last_fetch = fetch_time
         feed_state.num_fetches += 1
 
@@ -88,17 +91,24 @@ def run_once(
                     continue
 
             try:
-                post_text = f"{entry.title}\n{entry.link}"
-                tags = {tag.upper(): tag for tag in feed_config.add_tags}
-
+                tags = {
+                    tag.upper().strip().lstrip("#"): tag.strip().lstrip("#")
+                    for tag in feed_config.add_tags + config.add_tags
+                }
                 for tag in entry.tags:
-                    if tag.upper() not in tags:
-                        tags[tag.upper()] = tag
+                    if tag.upper().strip().lstrip("#") not in tags:
+                        tags[tag.upper().strip().lstrip("#")] = tag.strip().lstrip("#")
 
-                if len(tags):
-                    post_text += "\n" + " ".join(
-                        map(lambda tag: f"#{tag}", sorted(tags))
-                    )
+                if debug_mode:
+                    logging.info("Final tags: %s", ",".join(sorted(tags.values())))
+
+                entry.tags = sorted(tags.values())
+
+                template = feed_config.template or config.template or "default"
+                if template in Renderers:
+                    post_text = Renderers[template](entry)
+                else:
+                    post_text = render_template(entry, template)
 
                 if debug_mode:
                     logging.info("Would post: %s", repr(post_text))

@@ -539,6 +539,25 @@ files = [
 ]
 
 [[package]]
+name = "mstache"
+version = "0.3.0"
+description = "mstache, Mustache for Python"
+optional = false
+python-versions = ">=3.10.0"
+files = [
+    {file = "mstache-0.3.0-py3-none-any.whl", hash = "sha256:17a53df221fe7cab18bf2250db4ed003db5f5e06d84cf41b1c5caeea6da50cf9"},
+    {file = "mstache-0.3.0.tar.gz", hash = "sha256:1d72368d1cd46a3721f7f7bbe18aa602d19d063ca0d63b164c1ab75c8c410e52"},
+]
+
+[package.extras]
+benchmark = ["chevron", "tabulate"]
+codestyle = ["mypy", "pycodestyle", "rstcheck", "ruff", "sphinx"]
+coverage = ["coverage[toml]"]
+dev = ["build", "chevron", "coverage[toml]", "mypy", "myst-parser", "pycodestyle", "rstcheck", "ruff", "sphinx", "sphinx-autobuild", "sphinx-autodoc-typehints", "tabulate", "twine"]
+docs = ["myst-parser", "sphinx", "sphinx-autobuild", "sphinx-autodoc-typehints"]
+release = ["build", "twine"]
+
+[[package]]
 name = "oauthlib"
 version = "3.2.2"
 description = "A generic, spec-compliant, thorough implementation of the OAuth request-signing logic"
@@ -1050,4 +1069,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.13"
-content-hash = "fa644de70e0fb57a541641d6002d82f588fd468cc27b73543a0e941d18a86d76"
+content-hash = "69e01d3452d9902519d54f8ec7118d428728f5c8c893682128f5b0909d928915"
