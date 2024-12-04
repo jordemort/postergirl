@@ -12,8 +12,9 @@ class MastodonConfig(BaseModel):
 
 class BaseFeedConfig(BaseModel):
     url: str
-    max_age: str = "7 days"
+    max_age: str | None = None
     add_tags: list[str] = []
+    template: str | None = None
 
 
 class FeedparserFeedConfig(BaseFeedConfig):
@@ -40,7 +41,10 @@ FeedConfig = Union[FeedparserFeedConfig, XPathFeedConfig]
 class PostergirlConfig(BaseModel):
     mastodon: MastodonConfig
     feeds: list[FeedConfig]
-    fetch_interval: str = "3 minutes"
+    fetch_interval: str = "10 minutes"
+    max_age: str = "1 day"
+    add_tags: list[str] = []
+    template: str | None = None
 
 
 class FeedState(BaseModel):

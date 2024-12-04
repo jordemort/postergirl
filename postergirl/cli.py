@@ -40,6 +40,7 @@ def login(
         )
     else:
         client_id, client_secret = create_app(instance_url)
+
     access_token = make_access_token(
         instance_url, client_id, client_secret, username, password
     )
