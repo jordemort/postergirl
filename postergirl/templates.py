@@ -7,6 +7,7 @@ from postergirl.feed import FeedEntry
 DEFAULT_TEMPLATE = """
 {{title}}
 {{link}}
+
 {{#tags}}#{{.}} {{/tags}}
 """
 
@@ -14,6 +15,8 @@ CONTENT_TEMPLATE = """
 {{content}}
 
 {{link}}
+
+{{#tags}}#{{.}} {{/tags}}
 """
 
 
